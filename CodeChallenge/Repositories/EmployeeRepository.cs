@@ -9,12 +9,12 @@ using CodeChallenge.Data;
 
 namespace CodeChallenge.Repositories
 {
-    public class EmployeeRespository : IEmployeeRepository
+    public class EmployeeRepository : IEmployeeRepository
     {
         private readonly EmployeeContext _employeeContext;
         private readonly ILogger<IEmployeeRepository> _logger;
 
-        public EmployeeRespository(ILogger<IEmployeeRepository> logger, EmployeeContext employeeContext)
+        public EmployeeRepository(ILogger<IEmployeeRepository> logger, EmployeeContext employeeContext)
         {
             _employeeContext = employeeContext;
             _logger = logger;
@@ -29,7 +29,8 @@ namespace CodeChallenge.Repositories
 
         public Employee GetById(string id)
         {
-            return _employeeContext.Employees.SingleOrDefault(e => e.EmployeeId == id);
+            var res = _employeeContext.Employees.Include(e => e.DirectReports).SingleOrDefault(e => e.EmployeeId == id);
+            return res;
         }
 
         public Task SaveAsync()
