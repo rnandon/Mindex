@@ -1,0 +1,27 @@
+[
+  {
+    "employeeId": "16a596ae-edd3-4847-99fe-c4518e82c86f",
+    "salary": 100000.00,
+    "effectiveDate": "2024-01-01T12:00:00Z"
+  },
+  {
+    "employeeId": "b7839309-3348-463b-a7e3-5de1c168beb3",
+    "salary": 90000.00,
+    "effectiveDate": "2023-02-15T12:00:00Z"
+  },
+  {
+    "employeeId": "03aa1462-ffa9-4978-901b-7c001562cf6f",
+    "salary": 80000.00,
+    "effectiveDate": "2022-03-17T12:00:00Z"
+  },
+  {
+    "employeeId": "62c1084e-6e34-4630-93fd-9153afb65309",
+    "salary": 95000.00,
+    "effectiveDate": "2021-10-31T12:00:00Z"
+  },
+  {
+    "employeeId": "c0c2293d-16bd-4603-8e08-638a9d18b22c",
+    "salary": 110000.00,
+    "effectiveDate": "2022-09-09T12:00:00Z"
+  }
+]
