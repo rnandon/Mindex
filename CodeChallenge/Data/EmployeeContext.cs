@@ -15,5 +15,13 @@ namespace CodeChallenge.Data
         }
 
         public DbSet<Employee> Employees { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Employee>()
+                .HasMany<Employee>(e => e.DirectReports)
+                .WithOne();
+        }
     }
 }
