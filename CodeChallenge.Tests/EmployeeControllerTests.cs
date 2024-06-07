@@ -1,4 +1,5 @@
 
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -81,6 +82,38 @@ namespace CodeCodeChallenge.Tests.Integration
             var employee = response.DeserializeContent<Employee>();
             Assert.AreEqual(expectedFirstName, employee.FirstName);
             Assert.AreEqual(expectedLastName, employee.LastName);
+        }
+
+        [TestMethod]
+        public void GetReportingStructure_Returns_Ok()
+        {
+            // Arrange
+            var employeeId = "16a596ae-edd3-4847-99fe-c4518e82c86f";
+            var expectedFirstName = "John";
+            var expectedLastName = "Lennon";
+            var expectedDirectReportCount = 4;
+
+            var expectedReportEmployeeId = "03aa1462-ffa9-4978-901b-7c001562cf6f";
+            var expectedSubReportCount = 2;
+
+            // Execute
+            var getRequestTask = _httpClient.GetAsync($"api/employee/{employeeId}/ReportingStructure");
+            var response = getRequestTask.Result;
+
+            // Assert
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            var reportingStructure = response.DeserializeContent<ReportingStructure>();
+            Assert.IsNotNull(reportingStructure.Employee);
+            var employee = reportingStructure.Employee;
+            Assert.AreEqual(expectedFirstName, employee.FirstName);
+            Assert.AreEqual(expectedLastName, employee.LastName);
+            Assert.AreEqual(expectedDirectReportCount, reportingStructure.NumberOfReports);
+
+            Assert.IsTrue(employee.DirectReports.Exists(e => e.EmployeeId == expectedReportEmployeeId));
+            var report = employee.DirectReports.First(e => e.EmployeeId == expectedReportEmployeeId);
+            Assert.IsNotNull(report);
+            Assert.IsNotNull(report.DirectReports);
+            Assert.AreEqual(expectedSubReportCount, report.DirectReports.Count());
         }
 
         [TestMethod]
