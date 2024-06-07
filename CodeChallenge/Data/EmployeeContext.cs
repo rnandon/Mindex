@@ -19,6 +19,7 @@ namespace CodeChallenge.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Configured to rely on EF to retrieve nested employees
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Employee>()
                 .HasKey(e => e.EmployeeId);

@@ -56,6 +56,11 @@ namespace CodeChallenge.Config
                 new EmployeeContext(
                     new DbContextOptionsBuilder<EmployeeContext>().UseInMemoryDatabase("EmployeeDB").Options
             )).Seed().Wait();
+
+            new CompensationDataSeeder(
+                new EmployeeContext(
+                    new DbContextOptionsBuilder<EmployeeContext>().UseInMemoryDatabase("EmployeeDB").Options
+            )).Seed().Wait();
         }
     }
 }

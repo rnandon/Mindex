@@ -15,14 +15,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Content Remove="resources\CompensationSeedData.json" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Compile Include="resources\CompensationSeedData.json" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="6.0.5" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.5" />
 	</ItemGroup>
