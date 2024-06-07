@@ -58,5 +58,38 @@ namespace CodeChallenge.Controllers
 
             return Ok(newEmployee);
         }
+
+        [HttpGet("{id}/ReportingStructure")]
+        public IActionResult GetReportingStructure(String id)
+        {
+            _logger.LogDebug($"Received employee count reports request for '{id}'");
+
+            var employee = _employeeService.GetById(id);
+
+            if (employee == null)
+                return NotFound();
+
+            var totalReports = PopulateReportingStructure(employee);
+
+            return Ok(new ReportingStructure { Employee = employee, NumberOfReports = totalReports });
+        }
+
+        private int PopulateReportingStructure(Employee employee)
+        {
+            // Start with current employee
+            var totalReports = employee.DirectReports.Count;
+            foreach (var report in employee.DirectReports)
+            {
+                var currentReport = _employeeService.GetById(report.EmployeeId);
+                if (currentReport is null)
+                {
+                    // This shouldn't really happen, but account for it
+                    continue;
+                }
+                // Make sure any reports for this employee are populated as well
+                totalReports += PopulateReportingStructure(currentReport);
+            }
+            return totalReports;
+        }
     }
 }
